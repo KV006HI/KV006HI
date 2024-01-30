@@ -1,0 +1,36 @@
+import g4f
+import pyttsx3
+
+# g4f.logging = True # enable logging
+# g4f.check_version = False # Disable automatic version checking
+# print(g4f.version) # check version
+# print(g4f.Provider.Ails.params)  # supported args
+
+engine = pyttsx3.init()
+
+engine.setProperty('rate', 200)
+engine.setProperty('volume', 1)
+
+# Automatic selection of provider
+
+while True:
+    promt = input('Запрос: ')
+
+    print('promt save')
+
+    # streamed completion
+    response = g4f.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": str(promt)}]
+        # stream=True,
+    )
+
+    print('response save')
+
+    print(response)
+
+    engine.say(response)
+
+    engine.runAndWait()
+
+    print('\n')
